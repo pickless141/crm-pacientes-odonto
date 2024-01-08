@@ -1,3 +1,4 @@
+//const crypto = require('crypto');
 const express = require('express');
 const cors = require('cors');
 const mainRoutes = require('./routes/indexRoutes')
@@ -11,5 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', mainRoutes)
 
+//Genera clave secreta para jwt
+//const jwtSecret = crypto.randomBytes(32).toString('hex');
+//console.log(jwtSecret);
 
 module.exports = app;
