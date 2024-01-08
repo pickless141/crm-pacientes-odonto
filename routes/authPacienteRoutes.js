@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const authPaciente = require('../controllers/authpaciente/AuthPaciente.js');
+const authPaciente = require('../controllers/auth-paciente/authPaciente');
 
 const authPacienteRoutes = Router();
 
