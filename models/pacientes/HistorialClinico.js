@@ -7,8 +7,18 @@ const historialClinicoSchema = new Schema({
     ref: 'Paciente',
     required: true,
   },
+  edad: Number,
+  fechaNacimiento: Date,
+  peso: Number,
+  identidad: Number,
+  tratamiento: {
+    type: String,
+    required: true,
+    trim: true
+  },
   observaciones: {
     type: String,
+    trim: true
   },
 });
 

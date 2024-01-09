@@ -1,13 +1,20 @@
 const HistorialClinico = require('../../models/pacientes/HistorialClinico');
 
 const registrarDatosOdontologo = async (req, res) => {
-  const { pacienteId, observaciones } = req.body;
+  const { pacienteId, edad, fechaNacimiento, peso, identidad, tratamiento, observaciones } = req.body;
 
   try {
+    // Convertir la fecha de nacimiento a un objeto de fecha
+    const fechaNacimientoObj = new Date(fechaNacimiento);
 
     // Crear un nuevo historial clínico
     const nuevoHistorial = new HistorialClinico({
       paciente: pacienteId,
+      edad,
+      fechaNacimiento: fechaNacimientoObj,
+      peso,
+      identidad,
+      tratamiento,
       observaciones,
     });
 
