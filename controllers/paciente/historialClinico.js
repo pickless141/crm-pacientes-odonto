@@ -27,6 +27,19 @@ const registrarDatosOdontologo = async (req, res) => {
   }
 };
 
+const mostrarHistorial = async (req, res) => {
+  try {
+    // Obtener todos los registros clínicos
+    const historiales = await HistorialClinico.find().populate('paciente'); // Puedes ajustar 'paciente' según tus necesidades
+
+    res.status(200).json({ historiales });
+  } catch (error) {
+    console.error('Error al obtener el historial clínico:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 module.exports = {
   registrarDatosOdontologo,
+  mostrarHistorial,
 };
