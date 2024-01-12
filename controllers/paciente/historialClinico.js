@@ -39,7 +39,39 @@ const mostrarHistorial = async (req, res) => {
   }
 };
 
+const editarHistorial = async (req, res) => {
+  const historialId = req.params.historialId; 
+
+  try {
+    // Verifica si el historial clínico existe
+    const historialExistente = await HistorialClinico.findById(historialId);
+    if (!historialExistente) {
+      return res.status(404).json({ error: 'Historial clínico no encontrado' });
+    }
+
+    // Extrae los datos actualizados del cuerpo de la solicitud
+    const { edad, fechaNacimiento, peso, identidad, tratamiento, observaciones } = req.body;
+
+    // Actualiza el historial clínico con los nuevos datos
+    historialExistente.edad = edad;
+    historialExistente.fechaNacimiento = new Date(fechaNacimiento);
+    historialExistente.peso = peso;
+    historialExistente.identidad = identidad;
+    historialExistente.tratamiento = tratamiento;
+    historialExistente.observaciones = observaciones;
+
+    // Guarda los cambios
+    await historialExistente.save();
+
+    res.status(200).json({ mensaje: 'Historial clínico actualizado exitosamente' });
+  } catch (error) {
+    console.error('Error al editar el historial clínico:', error);
+    res.status(500).json({ error: 'Ese historial no existe, intenta de nuevo!' });
+  }
+};
+
 module.exports = {
   registrarDatosOdontologo,
   mostrarHistorial,
+  editarHistorial
 };
