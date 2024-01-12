@@ -10,4 +10,7 @@ datosOdontologoRoutes.post('/', verificarAutenticacion, datosOdontologo.registra
 // Ruta para mostrar todo el historial clínico
 datosOdontologoRoutes.get('/', verificarAutenticacion, datosOdontologo.mostrarHistorial);
 
+//Ruta para editar datos por ID
+datosOdontologoRoutes.put('/:historialId', verificarAutenticacion, datosOdontologo.editarHistorial);
+
 module.exports = datosOdontologoRoutes;
