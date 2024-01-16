@@ -65,7 +65,7 @@ const editarHistorial = async (req, res) => {
 
     res.status(200).json({ mensaje: 'Historial clínico actualizado exitosamente' });
   } catch (error) {
-    console.error('Error al editar el historial clínico:', error);
+    console.error('Error al editar el historial clínico:', error.message);
     res.status(500).json({ error: 'Ese historial no existe, intenta de nuevo!' });
   }
 };
