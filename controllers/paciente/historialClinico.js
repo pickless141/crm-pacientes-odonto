@@ -22,7 +22,7 @@ const registrarDatosOdontologo = async (req, res) => {
 
     res.status(201).json({ mensaje: 'Datos registrados exitosamente' });
   } catch (error) {
-    console.error('Error al registrar los datos:', error);
+    console.error('Error al registrar los datos:', error.message);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
@@ -34,7 +34,7 @@ const mostrarHistorial = async (req, res) => {
 
     res.status(200).json({ historiales });
   } catch (error) {
-    console.error('Error al obtener el historial clínico:', error);
+    console.error('Error al obtener el historial clínico:', error.message);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
@@ -70,8 +70,26 @@ const editarHistorial = async (req, res) => {
   }
 };
 
+const eliminarHistorial = async (req, res) => {
+  const historialId = req.params.historialId;
+
+  try {
+    const resultado = await HistorialClinico.findOneAndDelete({ _id: historialId });
+
+    if (!resultado) {
+      return res.status(404).json({ error: 'Historial clínico no encontrado' });
+    }
+
+    res.status(200).json({ mensaje: 'Historial clínico eliminado exitosamente' });
+  } catch (error) {
+    console.error('Error al eliminar el historial clínico:', error.message);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 module.exports = {
   registrarDatosOdontologo,
   mostrarHistorial,
-  editarHistorial
+  editarHistorial,
+  eliminarHistorial
 };
