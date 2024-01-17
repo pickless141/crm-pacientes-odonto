@@ -28,7 +28,41 @@ const registrarCita = async (req, res) => {
         from: process.env.GMAIL_USER,
         to: paciente.email,
         subject: 'Confirmación de Cita',
-        text: `Su cita para el ${fecha} a las ${hora} ha sido registrada exitosamente.`,
+        html: `
+          <html>
+            <head>
+              <style>
+                body {
+                  background-color: #f4f4f4;
+                  font-family: Arial, sans-serif;
+                  margin: 0;
+                  padding: 0;
+                }
+                .container {
+                  background-color: #8ed2c9;
+                  max-width: 400px;
+                  margin: 20px auto;
+                  padding: 20px;
+                  text-align: center;
+                }
+                .mensaje {
+                  font-size: 16px;
+                  color: #333;
+                }
+                .despedida {
+                  font-size: 14px;
+                  color: #666;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <p class="mensaje">Su cita para el ${fecha} a las ${hora} ha sido registrada exitosamente.</p>
+                <p class="despedida">¡Esperamos verlo pronto!</p>
+              </div>
+            </body>
+          </html>
+        `,
       };
 
       await transporter.sendMail(mensajeCorreo);
