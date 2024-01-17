@@ -39,7 +39,7 @@ const registrarCita = async (req, res) => {
       res.status(201).json({ mensaje: 'Cita registrada exitosamente', cita: citaRegistrada });
     });
   } catch (error) {
-    console.error('Error al registrar la cita:', error.message);
+    console.error('Error al registrar la cita:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
@@ -47,3 +47,4 @@ const registrarCita = async (req, res) => {
 module.exports = {
   registrarCita,
 };
+
