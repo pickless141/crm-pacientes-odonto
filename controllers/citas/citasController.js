@@ -78,6 +78,34 @@ const registrarCita = async (req, res) => {
   }
 };
 
+const actualizarEstadoCita = async (req, res) => {
+  try {
+    verificarAutenticacion(req, res, async () => {
+      const { citaId, estado } = req.body;
+
+      // Verificar si la cita existe
+      const citaExistente = await Cita.findById(citaId);
+      if (!citaExistente) {
+        return res.status(404).json({ error: 'Cita no encontrada' });
+      }
+
+      // Validar que el estado proporcionado sea válido
+      if (estado !== 'rechazada' && estado !== 'aceptada') {
+        return res.status(400).json({ error: 'Estado de cita no válido' });
+      }
+
+      // Actualizar el estado de la cita
+      citaExistente.estado = estado;
+      await citaExistente.save();
+
+      res.status(200).json({ mensaje: `Estado de la cita actualizado a ${estado}` });
+    });
+  } catch (error) {
+    console.error('Error al actualizar el estado de la cita:', error.message);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 const obtenerCitas = async (req, res) => {
   try {
     verificarAutenticacion(req, res, async () => {
@@ -94,6 +122,7 @@ const obtenerCitas = async (req, res) => {
 
 module.exports = {
   registrarCita,
-  obtenerCitas
+  obtenerCitas,
+  actualizarEstadoCita
 };
 
