@@ -78,7 +78,22 @@ const registrarCita = async (req, res) => {
   }
 };
 
+const obtenerCitas = async (req, res) => {
+  try {
+    verificarAutenticacion(req, res, async () => {
+      // Obtener todas las citas registradas
+      const citas = await Cita.find().populate('paciente');
+
+      res.status(200).json({ citas });
+    });
+  } catch (error) {
+    console.error('Error al obtener las citas:', error.message);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 module.exports = {
   registrarCita,
+  obtenerCitas
 };
 
