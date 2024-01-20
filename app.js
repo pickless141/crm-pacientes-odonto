@@ -6,7 +6,15 @@ const mainRoutes = require('./routes/indexRoutes')
 
 const app = express();
 
-app.use(cors());
+const allowedOrigin = process.env.FRONTEND_URL
+
+app.use(
+    cors({
+      origin: allowedOrigin,
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true, 
+    })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
